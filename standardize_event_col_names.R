@@ -1,7 +1,7 @@
 library(dplyr)
 library(rlang)
 
-fix_column_names <- function(df) {
+fxn_fix_column_names <- function(df) {
   # Known substitutions: incorrect or alternate names → correct names
   fix_map <- c(
     BIRTH = "BDAT",
