@@ -78,7 +78,7 @@ fxn_calc_CI<-function(df){
     mutate(CI_lower = round((CR-CI)*100, digits = 1), 
            CI_upper = round((CR+CI)*100, digits = 1)
     )%>%
-    mutate(pctConc = round(CR*100, digits = 1))
+    mutate(pctConc = round(CR*100, digits = 0))
 }
 
 # Create CR warnings -------------------
