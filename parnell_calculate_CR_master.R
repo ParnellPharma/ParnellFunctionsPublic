@@ -114,26 +114,25 @@ fxn_create_CR_reports<-function(df, grp_vars){
   if('event' %in% colnames(df)){
     df<-df%>%
     mutate(Event = event)
-    return(df)
     }
 
    if('date' %in% colnames(df)){
     df<-df%>%
     mutate(Date = date)
-    return(df)
     }
   
   df%>%
     filter(Event %in% 'BRED')%>%
     filter(Date<(date_pull_max-40))%>%
     fxn_standardize_for_CR()%>%
-    group_by(across({{grp_vars}}))%>%
+    group_by(across(all_of(grp_vars)))%>%
     fxn_calculate_CR_main()%>%
     ungroup()%>%
     #filter(!(deno<10))%>%
     fxn_calc_CI()%>% # this must follow fxn_calculate_CR_main
     fxn_create_CR_warnings()
 }
+
 
 
 
