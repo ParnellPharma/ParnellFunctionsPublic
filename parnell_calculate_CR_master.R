@@ -128,7 +128,7 @@ fxn_create_CR_reports<-function(df, grp_vars){
   
   df%>%
     filter(Event %in% 'BRED')%>%
-    filter(Date<(date_pull_max-40))%>%
+    #filter(Date<(date_pull_max-40))%>%
     fxn_standardize_for_CR()%>%
     group_by(across(all_of(grp_vars)))%>%
     fxn_calculate_CR_main()%>%
@@ -137,6 +137,7 @@ fxn_create_CR_reports<-function(df, grp_vars){
     fxn_calc_CI()%>% # this must follow fxn_calculate_CR_main
     fxn_create_CR_warnings()
 }
+
 
 
 
