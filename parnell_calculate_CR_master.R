@@ -13,6 +13,8 @@ library(tidyverse)
 # EXAMPLE: 
 # cr_report<-my_data_bred_events%>%
 #            fxn_create_CR_reports(grp_vars = c('location', 'lact_group', 'floor_date_month', 'R'))
+
+
 #Standardize R for CR----------------------
 fxn_standardize_for_CR<-function(df){
   df%>%
@@ -132,4 +134,5 @@ fxn_create_CR_reports<-function(df, grp_vars){
     fxn_calc_CI()%>% # this must follow fxn_calculate_CR_main
     fxn_create_CR_warnings()
 }
+
 
