@@ -2,7 +2,7 @@ library(tidyverse)
 
 
 
-# data should be a data frame with at least 3 columns: event, date, and R (or Event, Date, R)
+# data should be a data frame where each row is a bred event, with the outcome of the breeding stored as the column "R"
 # to calculate conception risk call the function named fxn_create_CR_reports()  
 # you may pipe your data into the function(best practice), or specify your data within the function by defining "df = my_data"
 # within the function you must also specify the variables you wish to group the data: "grp_vars = c('location', 'lact_group', 'floor_date_month', 'R')"
@@ -137,6 +137,7 @@ fxn_create_CR_reports<-function(df, grp_vars){
     fxn_calc_CI()%>% # this must follow fxn_calculate_CR_main
     fxn_create_CR_warnings()
 }
+
 
 
 
