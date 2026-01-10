@@ -124,7 +124,7 @@ fxn_create_CR_reports<-function(df, grp_vars){
     mutate(Date = date)
     }
 
-  date_pull_max = max(df$Date)
+  #date_pull_max = max(df$Date)
   
   df%>%
     filter(Event %in% 'BRED')%>%
@@ -137,6 +137,7 @@ fxn_create_CR_reports<-function(df, grp_vars){
     fxn_calc_CI()%>% # this must follow fxn_calculate_CR_main
     fxn_create_CR_warnings()
 }
+
 
 
 
