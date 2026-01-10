@@ -2,9 +2,17 @@ library(tidyverse)
 
 
 
-# data must be a list of unique BRED events, grouping must contain R as a column
+# data should be a data frame with at least 2 columns: events and R
+# to calculate conception risk call the function named fxn_create_CR_reports()  
+# you may pipe your data into the function(best practice), or specify your data within the function by defining "df = my_data"
+# within the function you must also specify the variables you wish to group the data: "grp_vars = c('location', 'lact_group', 'floor_date_month', 'R')"
+# the function will accept any grouping variable that does not contain an "NA" value, and you must include "R" (repro outcome) as a column in the grouping
+# NOTE: if your data is not dairy comp data as long as your outcome is contained in a variable named R, and you have an events column containing "BRED" events you can use it.  
+# However if using non-dairy comp data or very messy dairy comp data, you may have to modify the fxn_standardize_for_CR() function to accept other values if you are getting R standard values of "ERROR"
 
-
+# EXAMPLE: 
+# cr_report<-my_data_bred_events%>%
+#            fxn_create_CR_reports(grp_vars = c('location', 'lact_group', 'floor_date_month', 'R'))
 #Standardize R for CR----------------------
 fxn_standardize_for_CR<-function(df){
   df%>%
@@ -100,6 +108,19 @@ fxn_create_CR_warnings<-function(df){
 #Create CR reports---------------------
 
 fxn_create_CR_reports<-function(df, grp_vars){
+
+  if('event' %in% colnames(df)){
+    df<-df%>%
+    mutate(Event = event)
+    return(df)
+    }
+
+   if('date' %in% colnames(df)){
+    df<-df%>%
+    mutate(Date = date)
+    return(df)
+    }
+  
   df%>%
     filter(Event %in% 'BRED')%>%
     filter(Date<(date_pull_max-40))%>%
@@ -111,3 +132,4 @@ fxn_create_CR_reports<-function(df, grp_vars){
     fxn_calc_CI()%>% # this must follow fxn_calculate_CR_main
     fxn_create_CR_warnings()
 }
+
