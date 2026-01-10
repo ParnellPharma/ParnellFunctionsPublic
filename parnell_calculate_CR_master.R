@@ -2,17 +2,17 @@ library(tidyverse)
 
 
 
-# data should be a data frame where each row is a bred event, with the outcome of the breeding stored as the column "R"
+# data should be a data frame where each row is a bred event, with the outcome of the breeding stored as the column "R" (not "Rstandard")
 # to calculate conception risk call the function named fxn_create_CR_reports()  
 # you may pipe your data into the function(best practice), or specify your data within the function by defining "df = my_data"
-# within the function you must also specify the variables you wish to group the data: "grp_vars = c('location', 'lact_group', 'floor_date_month', 'R')"
+# within the function you must also specify the variables you wish to group the data: "grp_vars = c('location', 'lact_group', 'floor_date_month', 'Rstandard')"
 # the function will accept any grouping variable that does not contain an "NA" value, and you must include "R" (repro outcome) as a column in the grouping
 # NOTE: if your data is not dairy comp data as long as your outcome is contained in a variable named R, and you have an events column containing "BRED" events you can use it.  
 # However if using non-dairy comp data or very messy dairy comp data, you may have to modify the fxn_standardize_for_CR() function to accept other values if you are getting R standard values of "ERROR"
 
 # EXAMPLE: 
 # cr_report<-my_data_bred_events%>%
-#            fxn_create_CR_reports(grp_vars = c('location', 'lact_group', 'floor_date_month', 'R'))
+#            fxn_create_CR_reports(grp_vars = c('location', 'lact_group', 'floor_date_month', 'Rstandard'))
 
 # Note: if you are missing values the code is desinged to filter out the most recent 40 days where pregnancy status is not known.  
 # If you do not like this feel free to copy this function and modify it to remove the date filter
@@ -137,6 +137,7 @@ fxn_create_CR_reports<-function(df, grp_vars){
     fxn_calc_CI()%>% # this must follow fxn_calculate_CR_main
     fxn_create_CR_warnings()
 }
+
 
 
 
